@@ -1,10 +1,11 @@
-from elasticsearch import AsyncElasticsearch, NotFoundError
+from elasticsearch import AsyncElasticsearch
 from uuid import uuid4
 from schemas.schemas import UserCreate, UserUpdate
 from utils.password_utils import hash_password
 from datetime import datetime
 from datetime import datetime, timedelta
-from search.connection import es
+from utils.es_utils import es
+
 
 
 USER_INDEX = "users"
