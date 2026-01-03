@@ -151,3 +151,24 @@ Good luck!
     except Exception as e:
         print(f"[SNS ERROR] Could not send personalized notification: {e}")
         return None
+
+
+
+
+
+
+def send_notification(message: str):
+    if not AWS_REGION:
+        # SNS disabled (Render / local without AWS)
+        print("SNS disabled: AWS_REGION not set")
+        return
+
+    sns = boto3.client(
+        "sns",
+        region_name=AWS_REGION
+    )
+
+    sns.publish(
+        TopicArn=os.getenv("SNS_TOPIC_ARN"),
+        Message=message
+    )
