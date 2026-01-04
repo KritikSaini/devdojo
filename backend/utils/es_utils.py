@@ -9,16 +9,15 @@ load_dotenv()
 
 # --- Environment ---
 ELASTICSEARCH_URL = os.getenv("ELASTICSEARCH_URL")
-ELASTICSEARCH_USERNAME = os.getenv("ELASTICSEARCH_USERNAME")
-ELASTICSEARCH_PASSWORD = os.getenv("ELASTICSEARCH_PASSWORD")
+ELASTICSEARCH_API_KEY = os.getenv("ELASTICSEARCH_API_KEY")
 
-if not ELASTICSEARCH_URL:
-    raise RuntimeError("ELASTICSEARCH_URL not set")
+if not ELASTICSEARCH_URL or not ELASTICSEARCH_API_KEY:
+    raise RuntimeError("Elasticsearch config missing")
 
 # --- Async Elasticsearch client ---
 es = AsyncElasticsearch(
     ELASTICSEARCH_URL,
-    basic_auth=(ELASTICSEARCH_USERNAME, ELASTICSEARCH_PASSWORD),
+    api_key=ELASTICSEARCH_API_KEY,
     request_timeout=10
 )
 
